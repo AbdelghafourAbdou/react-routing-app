@@ -1,0 +1,39 @@
+.van > button {
+    height: 4vh;
+    border-radius: 5px;
+    width: fit-content;
+    position: relative;
+    right: 13%;
+    color: azure;
+}
+
+.van > img {
+    height: auto;
+    width: 40%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.van {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.under {
+    display: flex;
+    gap: 55px;
+}
+
+.price {
+    display: block;
+    text-align: right;
+}
+
+.name {
+    text-align: inline;
+    display: block;
+}
