@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import './Van.css'
 
 const Van = ({ props }) => {
@@ -23,6 +24,7 @@ const Van = ({ props }) => {
     }
 
     return (
+        <Link to={`/vans/${props.id}`}>
         <div className='van'>
             <img src={props.imageUrl} alt='van picture' />
             <div className='under'>
@@ -33,6 +35,7 @@ const Van = ({ props }) => {
                 {newType}
             </button>
         </div>
+        </Link>
     )
 }
 

@@ -1,0 +1,36 @@
+button {
+    height: 4vh;
+    border-radius: 5px;
+    width: fit-content;
+    position: relative;
+    color: azure;
+}
+
+img {
+    max-width: 60%;
+    max-height: 50%;
+    border-radius: 5px;
+}   
+
+.vanInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: start;
+    margin-left: 30px;
+}
+
+.rent {
+    width: 40vw;
+    background-color: rgb(205, 136, 9);
+    color: whitesmoke;
+    margin-bottom: 35px;
+}
+
+.details {
+    width: 40vw;
+}
+
+.bolden {
+    font-weight: 700;
+}
