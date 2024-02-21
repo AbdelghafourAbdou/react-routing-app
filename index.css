@@ -143,3 +143,20 @@ header a:hover {
     color: white;
     border-radius: 10px;
 }
+
+.footer {
+    background-color: #4D4D4D;
+    color: snow;
+    height: 3vh;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    margin-top: 20px;
+}
