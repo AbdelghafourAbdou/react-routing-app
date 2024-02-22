@@ -16,6 +16,7 @@ body::-webkit-scrollbar {
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
+  min-height: 100vh;
 }
 
 header {
@@ -147,7 +148,7 @@ header a:hover {
 .footer {
     background-color: #4D4D4D;
     color: snow;
-    height: 3vh;
+    min-height: 5vh;
     width: 100%;
 
     display: flex;

@@ -6,7 +6,7 @@ import './HostVan.css'
 const HostVan = () => {
     const path = useLocation();
     const { id } = useParams();
-    console.log(path.pathname == `/host/vans/${id}` )
+
     const [van, setVan] = useState({});
     const [loading, setLoading] = useState(true);
     let newType = null;
