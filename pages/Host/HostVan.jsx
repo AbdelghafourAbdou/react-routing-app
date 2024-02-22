@@ -59,7 +59,7 @@ const HostVan = () => {
                         </div>
                         <header className='inner-header'>
                             <nav>
-                                <NavLink className={(({ isActive }) => isActive) || path.pathname == `/host/vans/${id}` ? 'isFocused' : {}} to={`/host/vans/${id}/details`}>Details</NavLink>
+                                <NavLink className={({ isActive }) => isActive || path.pathname == `/host/vans/${id}` ? 'isFocused' : {}} to={`/host/vans/${id}/details`}>Details</NavLink>
                                 <NavLink className={({ isActive }) => isActive ? 'isFocused' : {}} to={`/host/vans/${id}/pricing`}>Pricing</NavLink>
                                 <NavLink className={({ isActive }) => isActive ? 'isFocused' : {}} to={`/host/vans/${id}/photos`}>Photos</NavLink>
                             </nav>
