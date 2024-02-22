@@ -39,7 +39,6 @@ function App() {
             <Route path="vans" element={<HostVans />}></Route>
             <Route path='vans/:id' element={<HostVan />}>
               <Route index element={<Details/>} ></Route>
-              <Route path="details" element={<Details/>} ></Route>
               <Route path="pricing" element={<Pricing/>} ></Route>
               <Route path="photos" element={<Photos/>} ></Route>
             </Route>

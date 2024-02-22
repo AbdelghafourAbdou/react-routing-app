@@ -45,7 +45,7 @@ const HostVan = () => {
 
     return (
         <div>
-            <Link className='link' to={'/host/vans'}>{`<= Back to All Vans`}</Link>
+            <Link className='link' to={'..'} relative='path'>{`<= Back to All Vans`}</Link>
             {loading === true ? "Loading" :
                 <div className='van-host'>
                     <div className='van-card'>
@@ -59,9 +59,9 @@ const HostVan = () => {
                         </div>
                         <header className='inner-header'>
                             <nav>
-                                <NavLink className={({ isActive }) => isActive || path.pathname == `/host/vans/${id}` ? 'isFocused' : {}} to={`/host/vans/${id}/details`}>Details</NavLink>
-                                <NavLink className={({ isActive }) => isActive ? 'isFocused' : {}} to={`/host/vans/${id}/pricing`}>Pricing</NavLink>
-                                <NavLink className={({ isActive }) => isActive ? 'isFocused' : {}} to={`/host/vans/${id}/photos`}>Photos</NavLink>
+                                <NavLink end className={({ isActive }) => isActive ? 'isFocused' : {}} to={`.`}>Details</NavLink>
+                                <NavLink className={({ isActive }) => isActive ? 'isFocused' : {}} to={`pricing`}>Pricing</NavLink>
+                                <NavLink className={({ isActive }) => isActive ? 'isFocused' : {}} to={`photos`}>Photos</NavLink>
                             </nav>
                         </header>
                         <Outlet context={[van, newType]}/>
