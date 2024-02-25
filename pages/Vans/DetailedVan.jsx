@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link, useLocation } from 'react-router-dom'
 import './DetailedVan.css'
 
 const DetailedVan = () => {
@@ -7,6 +7,15 @@ const DetailedVan = () => {
     const vanId = paramsObject.id;
     const [van, setVan] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const location = useLocation();
+    let searchParametres =  new URLSearchParams(location.search);
+    searchParametres.delete('type'); 
+    const searchParamsBack = location.state?.searchParams || searchParametres;
+    const finalSearchParams = new URLSearchParams(searchParamsBack);
+    const keywordToShow = finalSearchParams.get('type');
+    console.log(keywordToShow);
+    //console.log(location);
 
     let newType = null;
     let bgColor = 'white';
@@ -42,10 +51,14 @@ const DetailedVan = () => {
     }
 
     return (
-        <div>{loading === true ? "Loading Van Data" :
+        <div>
+            <Link className='link' to={`..?${searchParamsBack.toString()}`} relative='path'>&larr; Back to {keywordToShow || 'All'} Vans</Link>
+            <br/>
+            <br/>
+            {loading === true ? "Loading Van Data" :
             <div className='vanInfo'>
                 <img src={van.imageUrl} />
-                <button type='button' style={{ backgroundColor: bgColor }}>
+                <button type='button' style={{ backgroundColor: bgColor, color: 'white' }}>
                     {newType}
                 </button>
                 <div className='details'>

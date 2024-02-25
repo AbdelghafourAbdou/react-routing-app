@@ -17,8 +17,8 @@ const HostVans = () => {
     }, [])
 
 
-    const renderedVans = vansList.map((van, index) =>
-        <Link key={van.id} to={`/host/vans/${van.id}`}>
+    const renderedVans = vansList.map((van) =>
+        <Link key={van.id} to={van.id}>
             <VanCard key={van.id} van={van} />
         </Link>
     )
