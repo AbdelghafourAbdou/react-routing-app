@@ -1,73 +1,62 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useParams, Outlet, NavLink, useLocation } from 'react-router-dom'
+import React from 'react'
+import { Link, Outlet, NavLink, useLoaderData } from 'react-router-dom'
 import './HostVan.css'
+import { getHostVans } from '../../api'
+import { requireAuth } from '../../utils'
 
+export async function loader({ params }) {
+    await requireAuth();
+    return getHostVans(params.id);
+}
 
 const HostVan = () => {
-    const path = useLocation();
-    const { id } = useParams();
-
-    const [van, setVan] = useState({});
-    const [loading, setLoading] = useState(true);
+    const van = useLoaderData();
     let newType = null;
     let bgColor = 'white';
 
-    useEffect(() => {
-        fetch(`/api/host/vans/${id}`)
-            .then(resp => resp.json())
-            .then(data => {
-                setVan(data.vans[0]);
-                setLoading(false);
-            })
+    newType = [van.type[0].toUpperCase(), van.type.slice(1)];
+    newType = newType.join('');
+    switch (newType) {
+        case 'Simple':
+            bgColor = 'orangered';
+            break;
 
-    }, [])
+        case 'Luxury':
+            bgColor = 'black';
+            break;
 
-    if (loading === false) {
-        newType = [van.type[0].toUpperCase(), van.type.slice(1)];
-        newType = newType.join('');
-        switch (newType) {
-            case 'Simple':
-                bgColor = 'orangered';
-                break;
+        case 'Rugged':
+            bgColor = 'green';
+            break;
 
-            case 'Luxury':
-                bgColor = 'black';
-                break;
-
-            case 'Rugged':
-                bgColor = 'green';
-                break;
-
-            default:
-                break;
-        }
+        default:
+            break;
     }
 
     return (
         <div>
             <Link className='link' to={'..'} relative='path'>{`<= Back to All Vans`}</Link>
-            {loading === true ? "Loading" :
-                <div className='van-host'>
-                    <div className='van-card'>
-                        <div className='van-card-inner'>
-                            <img src={van.imageUrl} />
-                            <div className='van-info'>
-                                <button style={{ backgroundColor: bgColor }} type='button'>{newType}</button>
-                                <p style={{ fontWeight: "bolder" }}>{van.name}</p>
-                                <p>${van.price}/day</p>
-                            </div>
+
+            <div className='van-host'>
+                <div className='van-card'>
+                    <div className='van-card-inner'>
+                        <img src={van.imageUrl} />
+                        <div className='van-info'>
+                            <button style={{ backgroundColor: bgColor }} type='button'>{newType}</button>
+                            <p style={{ fontWeight: "bolder" }}>{van.name}</p>
+                            <p>${van.price}/day</p>
                         </div>
-                        <header className='inner-header'>
-                            <nav>
-                                <NavLink end className={({ isActive }) => isActive ? 'isFocused' : {}} to={`.`}>Details</NavLink>
-                                <NavLink className={({ isActive }) => isActive ? 'isFocused' : {}} to={`pricing`}>Pricing</NavLink>
-                                <NavLink className={({ isActive }) => isActive ? 'isFocused' : {}} to={`photos`}>Photos</NavLink>
-                            </nav>
-                        </header>
-                        <Outlet context={[van, newType]}/>
                     </div>
+                    <header className='inner-header'>
+                        <nav>
+                            <NavLink end className={({ isActive }) => isActive ? 'isFocused' : {}} to={`.`}>Details</NavLink>
+                            <NavLink className={({ isActive }) => isActive ? 'isFocused' : {}} to={`pricing`}>Pricing</NavLink>
+                            <NavLink className={({ isActive }) => isActive ? 'isFocused' : {}} to={`photos`}>Photos</NavLink>
+                        </nav>
+                    </header>
+                    <Outlet context={[van, newType]} />
                 </div>
-            }
+            </div>
         </div>
     )
 }

@@ -1,28 +1,23 @@
-import React, { useState, useEffect } from "react"
-import { Link, useSearchParams } from 'react-router-dom'
+import React, { useState } from "react"
+import { Link, useSearchParams, useLoaderData } from 'react-router-dom'
 import "./Vans.css"
 import Van from "./Van"
+import { getVans } from "../../api"
+
+export function loader() {
+    return getVans();
+}
 
 export default function Vans() {
+    const vans = useLoaderData();
+
     const [searchParams, setSearchParams] = useSearchParams();
-    const [vans, setVans] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    let displayedVans = [];
     const typeFilter = searchParams.get('type');
+    let displayedVans = [];
 
-    useEffect(() => {
-        fetch("api/vans")
-            .then(response => response.json())
-            .then(data => {
-                setVans(data['vans']);
-                setLoading(false);
-            })
-    }, []);
-
-    if (!loading && !typeFilter) {
+    if (!typeFilter) {
         displayedVans = vans;
-    } else if (!loading && typeFilter) {
+    } else if (typeFilter) {
         const filteredVans = vans.filter(van => van.type.toLowerCase() === typeFilter.toLowerCase());
         displayedVans = filteredVans;
     }
@@ -68,9 +63,9 @@ export default function Vans() {
         <div className="">
             <h1>Explore our van options</h1>
             <div className='type-filter'>
-                <button style={ typeFilter === 'simple' ? simpleStyle : null} onClick={() => addSearchParamsforButtons('type', 'simple')}>Simple</button>
-                <button style={ typeFilter === 'rugged' ? ruggedStyle : null} onClick={() => addSearchParamsforButtons('type', 'rugged')}>Rugged</button>
-                <button style={ typeFilter === 'luxury' ? luxuryStyle : null} onClick={() => addSearchParamsforButtons('type', 'luxury')}>Luxury</button>
+                <button style={typeFilter === 'simple' ? simpleStyle : null} onClick={() => addSearchParamsforButtons('type', 'simple')}>Simple</button>
+                <button style={typeFilter === 'rugged' ? ruggedStyle : null} onClick={() => addSearchParamsforButtons('type', 'rugged')}>Rugged</button>
+                <button style={typeFilter === 'luxury' ? luxuryStyle : null} onClick={() => addSearchParamsforButtons('type', 'luxury')}>Luxury</button>
                 {typeFilter ? clear : null}
                 {/* <Link to={addSearchParamsforLinks('type', 'simple')}>Simple</Link>
                 <Link to={addSearchParamsforLinks('type', 'rugged')}>Rugged</Link>
@@ -78,12 +73,11 @@ export default function Vans() {
                 <Link to={addSearchParamsforLinks('type', '')}>Clear</Link> */}
             </div>
             <div>
-                {loading === true ? "Loading" :
-                    <div className="vans-collection">
-                        {displayedVans.map((van) => (
-                            <Van key={van.id} props={[van, searchParams]} />
-                        ))}
-                    </div>}
+                <div className="vans-collection">
+                    {displayedVans.map((van) => (
+                        <Van key={van.id} props={[van, searchParams]} />
+                    ))}
+                </div>
             </div>
         </div>
     )
