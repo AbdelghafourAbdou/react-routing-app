@@ -40,5 +40,7 @@ export async function loginUser(creds) {
         }
     }
 
+    localStorage.setItem("loggedin", true);
+
     return data
 }
