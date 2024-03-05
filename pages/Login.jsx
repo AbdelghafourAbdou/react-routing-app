@@ -34,7 +34,7 @@ const Login = () => {
             <Form method='post' className='sign-in-form' replace>
                 <input name='email' type='email' placeholder='Please enter your email' />
                 <input name='password' type='password' placeholder='Please enter your password' />
-                <button disabled={status !== 'idle'} >{status !== 'idle' ? "Logging in ..." : "Log in"}</button>
+                <button disabled={status === 'submitting'} >{status === 'submitting' ? "Logging in ..." : "Log in"}</button>
             </Form>
 
         </div>
