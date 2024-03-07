@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link, useLocation, useLoaderData } from 'react-router-dom'
 import './DetailedVan.css'
-import { getVans } from '../../api'
+import { getVan } from '../../api'
 
 export function loader({ params }) {
-    return getVans(params.id);
+    return getVan(params.id);
 }
 
 const DetailedVan = () => {
